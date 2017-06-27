@@ -1,0 +1,13 @@
+{
+	"comment": "",
+	"ignore": "test",
+	"package": [
+		{
+			"checksumSHA1": "08bAXkMbdBFQ+mKn2kQ7F6YTUek=",
+			"path": "github.com/shopspring/decimal",
+			"revision": "16a941821474ee3986fdbeab535a68a8aa5a85d2",
+			"revisionTime": "2017-05-17T22:01:17Z"
+		}
+	],
+	"rootPath": "neighborhood-model"
+}
