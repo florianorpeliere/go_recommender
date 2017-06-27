@@ -1,0 +1,63 @@
+\documentclass[12pt]{article}
+
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage[colorinlistoftodos]{todonotes}
+
+\title{Predicting Ratings with Neighborhood-Based
+Methods}
+
+\author{Florian Orpeli\`ere}
+
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{Formules de bases}
+\label{sec:explication}
+
+Posons les \'el\'ements suivants : 
+
+\begin{itemize}
+\item La moyenne des notes d'un utilisateur $u$ est $\mu_u$. $I_u$ repr\'esente l'ensemble des items que l'utilsateur $u$ a not\'e :
+\newline\newline
+$\displaystyle \mu_u = \frac{\sum_{k \in I_u} r_{uk}}{\left| I_u \right|}$
+\newline\newline
+\item La similarité de Pearson (g\'en\'eral):
+\newline\newline
+$\displaystyle Sim(x,y)=Pearson(x,y)={\frac {\sum _{i=1}^{n}(x_{i}-{\bar {x}}).(y_{i}-{\bar {y}})}{{\sqrt {\sum _{i=1}^{n}(x_{i}-{\bar {x}})^{2}}}{\sqrt {\sum _{i=1}^{n}(y_{i}-{\bar {y}})^{2}}}}}$
+\newline\newline\newline
+O\`u ${\bar {x}}={\frac {1}{n}}\sum _{i=1}^{n}x_{i}$ est la moyenne des $x$.
+\newline
+On pourrait en utiliser d'autres. Celle-ci à la propriété d'avoir des valeurs comprises entre -1 et 1.
+\newline\newline
+$\displaystyle s_{uj} = r_{uj} - \mu_u$
+\newline\newline
+O\`u $r_{u_j}$ est la note d'un utilisateur $u$ sur l'item $j$.
+\end{itemize}
+
+\section{Neighborhood Models bas\'e sur les utilisateurs}
+
+On commence par calcul\'e la similarit\'e entre deux utilisateurs $u$ et $v$.
+\newline\newline
+$\displaystyle Sim(u,v)
+\newline
+=Pearson(u,v)
+={\frac {\sum _{k \in{I_u\cap{I_v}}}(r_{uk}-{\mu_u}).(r_{vk}-{\mu_v})}{{\sqrt {\sum _{k \in{I_u\cap{I_v}}}(r_{uk}-{\mu_u})^{2}}}{\sqrt {\sum _{k \in{I_u\cap{I_v}}}(r_{vk}-{\mu_v})^{2}}}}}
+\newline
+={\frac {\sum _{k \in{I_u\cap{I_v}}} s_{uk}. s_{vk}}{{\sqrt {\sum _{k \in{I_u\cap{I_v}}}s_{uk}^{2}}}{\sqrt {\sum _{k \in{I_u\cap{I_v}}}s_{vk}^{2}}}}}$
+\newline\newline
+Avec
+${\sum _{k \in{I_u\cap{I_v}}}(r_{uk}-{\mu_u}).(r_{vk}-{\mu_v})}$ qui est le produit scalaire des vecteurs $r_{u}$ et $r_{v}$ minor\'e par leur moyenne $\mu_u$ et $\mu_v$ respectivement. Donc lle produit scalaire des notes d'un utilisateurs $u$ et $v$ centr\'ees sur la moyenne.
+\newline\newline
+Puis, $\sqrt {\sum _{k \in{I_u\cap{I_v}}}(r_{v_u}-{\mu_u})^{2}}$ et $\sqrt {\sum _{k \in{I_u\cap{I_v}}}(r_{v_k}-{\mu_v})^{2}}$ qui est la norme des vecteurs $r_{u}$ et $r_{v}$ minor\'e par leur moyenne $\mu_u$ et $\mu_v$.
+\newline\newline
+Nous pouvons pr\'edire la note d'un utilisateur $u$ sur l'item $j$ :
+ \newline\newline
+$\displaystyle r_{uj}= \mu_u + {\frac {\sum _{v \in{P_u(j)}} Sim(u,v) . s_{vj}}{\sum _{v \in{P_u(j)}} |Sim(u,v)|}}$
+\newline\newline
+
+\end{document}
+
